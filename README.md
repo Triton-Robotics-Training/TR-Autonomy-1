@@ -129,3 +129,37 @@ __you will need to copy over the `colcon_defaults.yaml` and `.clang-format` file
 ### Submission Directions
 
 Commit your completed code for Part 2 (and optionally Part 1) to this github repo, and submit it if that's possible (IDK how GH classroom works)
+
+## Concepts You'll Need to Look Up
+
+Below is a checklist of the things you will have to figure out how to write. We are deliberately not giving you the syntax, since part of this module is learning to read ROS2 and C++ documentation, which is what you'll be doing for the rest of your time on autonomy.
+
+### ROS2 / rclcpp
+
+- **Declaring a publisher**: the message type, the topic name, and the queue depth, and how you store the returned handle as a member.
+  - [`Node::create_publisher`](https://docs.ros.org/en/humble/p/rclcpp/generated/classrclcpp_1_1Node.html#_CPPv4I000EN6rclcpp4Node16create_publisherENSt10shared_ptrI10PublisherTEERKNSt6stringERKN6rclcpp3QoSERK29PublisherOptionsWithAllocatorI10AllocatorTE)
+- **Declaring a subscriber and binding a callback to it**: this is the part that trips most people up. Look at how the callback's signature has to match the message type, and how it gets attached to the subscription.
+  - [`Node::create_subscription`](https://docs.ros.org/en/humble/p/rclcpp/generated/classrclcpp_1_1Node.html#_CPPv4I00000EN6rclcpp4Node19create_subscriptionENSt10shared_ptrI13SubscriptionTEERKNSt6stringERKN6rclcpp3QoSERR9CallbackTRK32SubscriptionOptionsWithAllocatorI10AllocatorTEN22MessageMemoryStrategyT9SharedPtrE)
+  - See the "callback" section of the [pub/sub tutorial](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Cpp-Publisher-And-Subscriber.html)
+- **Wall timers**: how to make a callback fire on a fixed period. This is how Part 2 publishes faster than the measurements arrive.
+  - [`Node::create_wall_timer`](https://docs.ros.org/en/humble/p/rclcpp/generated/classrclcpp_1_1Node.html#_CPPv4I000EN6rclcpp4Node17create_wall_timerEN6rclcpp9WallTimerI9CallbackTE9SharedPtrENSt6chrono8durationI12DurationRepT9DurationTEE9CallbackTN6rclcpp13CallbackGroup9SharedPtrE)
+- **Getting the current time**: you need delta t since the last measurement, so you need a clock.
+  - [`rclcpp::Clock` / `rclcpp::Time`](https://docs.ros.org/en/humble/p/rclcpp/generated/classrclcpp_1_1Clock.html)
+- **Message types**: how a `.msg` definition maps onto the C++ type, and what fields `Float64MultiArray` actually has.
+  - [`Float64MultiArray.msg` definition](https://github.com/ros2/common_interfaces/blob/humble/std_msgs/msg/Float64MultiArray.msg)
+
+### C++
+
+- **`std::bind` and `std::placeholders`**: the usual way callbacks get bound to member functions in rclcpp.
+  - [cppreference: `std::bind`](https://en.cppreference.com/w/cpp/utility/functional/bind)
+- **`std::chrono` durations and literals**: how you express "500ms" to a wall timer.
+  - [cppreference: `std::chrono::duration`](https://en.cppreference.com/w/cpp/chrono/duration)
+
+### Debugging tools
+
+- **`ros2 topic` CLI**: `list`, `echo`, `hz`, and `info` will tell you whether your node is actually publishing, and whether anyone is listening. Use these before you start adding print statements.
+  - [Understanding ROS2 topics](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Topics/Understanding-ROS2-Topics.html)
+- **`RCLCPP_INFO`**: ROS2's logging macros, which behave better than `std::cout` inside nodes.
+  - [Logging in ROS2](https://docs.ros.org/en/humble/Tutorials/Demos/Logging-and-logger-configuration.html)
+
+If you get stuck on any of these for more than a little while, ask in the #autonomy-support.
