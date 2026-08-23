@@ -3,6 +3,27 @@ First Training Module for TR Autonomy Recruits
 
 [![Autonomy Training Resources](https://img.shields.io/badge/CV-%20Training%20Resources-eac817?labelColor=2a77a2&style=for-the-badge)](https://github.com/Triton-Robotics-Training/TR-CV-0/blob/main/resources.md)
 
+## How to Work On and Submit This Assignment
+
+**Read this before you clone anything.** Do not push directly to this repository. All work happens in your own fork.
+
+1. Click "Fork" at the top right of this page, set the **Owner** to `Triton-Robotics-Training`, and name the fork so it's clearly yours, e.g. `TR-Autonomy-1-your-name`.
+
+   ![Creating a fork in the Triton-Robotics-Training organization](images/create-fork.png)
+
+2. **Clone *your fork*** (not this repo) and do all of your work there:
+   ```bash
+   git clone git@github.com:Triton-Robotics-Training/TR-Autonomy-1-your-name.git
+   ```
+3. **Commit and push your work to your fork** as you go.
+4. **When you're done, open a pull request** from your fork back to `Triton-Robotics-Training/TR-Autonomy-1` `master`. Once your fork is ahead of the upstream repo, GitHub shows a **Contribute → Open pull request** button on your fork's front page:
+
+   ![Opening a pull request from your fork back to the upstream repo](images/open-pull-request.png)
+
+   That pull request is your submission — you do not need to do anything else to submit.
+
+If you can't fork into the org because you don't have access, ask an autonomy lead to add you to the GitHub organization.
+
 ## Task Overview
 
 This module works with [publishers and subscribers](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Cpp-Publisher-And-Subscriber.html). A quick summary is that publishers can publish data to a topic (such as /measuredpos), and subscribers will receive that data.  
@@ -24,9 +45,9 @@ apt-get install python3-rosdep
 sudo rosdep init
 rosdep update
 ```
-[Workspaces](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html) are directories for ROS2 packages. Each training assignment that we clone is going to be its own workspace. Starting by cloning the github repository in whichever directory you desire.
+[Workspaces](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html) are directories for ROS2 packages. Each training assignment that we clone is going to be its own workspace. Starting by cloning **your fork** of the github repository in whichever directory you desire.
 ```
-git clone YOUR_REPOSITORY_URL
+git clone YOUR_FORK_URL
 ```
 Source the root setup file from your ros installation (typically in `/opt/ros/humble/setup.bash`) in the shell you are building in.
 Then at the root of this workspace, first isntall any necessary dependencies using [rosdep](https://docs.ros.org/en/humble/Tutorials/Intermediate/Rosdep.html), then run `colcon build`. This generates an overlay with your packages. You then have to open a new terminal, navigate to your workspace directory, and `source install/setup.bash` to source your overlay. These set of commands commands are run every time you setup a new package. [Reference](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html)
@@ -128,7 +149,7 @@ __you will need to copy over the `colcon_defaults.yaml` and `.clang-format` file
 
 ### Submission Directions
 
-Commit your completed code for Part 2 (and optionally Part 1) to this github repo, and submit it if that's possible (IDK how GH classroom works)
+Commit your completed code for Part 2 (and optionally Part 1) to **your fork**, push it, and open a pull request against `Triton-Robotics-Training/TR-Autonomy-1` `master`. See [How to Work On and Submit This Assignment](#how-to-work-on-and-submit-this-assignment) at the top of this README.
 
 ## Concepts You'll Need to Look Up
 
