@@ -20,7 +20,7 @@ First Training Module for TR Autonomy Recruits
 
    ![Opening a pull request from your fork back to the upstream repo](images/open-pull-request.png)
 
-   That pull request is your submission — you do not need to do anything else to submit.
+   That pull request is your submission. You do not need to do anything else to submit.
 
 If you can't fork into the org because you don't have access, ask an autonomy lead to add you to the GitHub organization.
 
