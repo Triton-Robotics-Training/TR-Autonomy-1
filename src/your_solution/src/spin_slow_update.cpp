@@ -8,7 +8,6 @@ int main(int argc, char *argv[]) {
 }
 
 SlowSolution::SlowSolution() : Node("slowsolution") {
-  RCLCPP_INFO(this->get_logger(), "Remove this statement from spin_slow_update.cpp");
   // your code here
 }
 
