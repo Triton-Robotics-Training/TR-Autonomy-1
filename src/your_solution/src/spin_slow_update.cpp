@@ -8,8 +8,23 @@ int main(int argc, char *argv[]) {
 }
 
 SlowSolution::SlowSolution() : Node("slowsolution") {
-  RCLCPP_INFO(this->get_logger(), "Remove this statement from spin_slow_update.cpp");
-  // your code here
+  sub_ = this->create_subscription<ArrayMsg>(
+  	"/measuredpos", 10,
+  	std::bind(&SlowSolution::sub_cb, this, std::placeholders::_1));
+  	
+  pub_ = this->create_publisher<ArrayMsg>("/predictedpos",10);
+  	
+  timer_ = this->create_wall_timer(
+  	std::chrono::milliseconds(500),
+  	std::bind(&SlowSolution::timer_cb, this));
 }
 
-// your code here
+void SlowSolution::sub_cb(const ArrayMsg::SharedPtr msg) {
+	latest_msg_ = *msg;
+}
+
+void SlowSolution::timer_cb() {
+  if (!latest_msg_.data.empty()) {
+	pub_->publish(latest_msg_);
+  }
+}
