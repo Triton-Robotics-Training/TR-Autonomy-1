@@ -1,5 +1,7 @@
 #include "spin_slow_update.h"
 
+using std::placeholders::_1;
+
 int main(int argc, char *argv[]) {
   rclcpp::init(argc, argv);
   rclcpp::spin(std::make_shared<SlowSolution>());
@@ -8,8 +10,11 @@ int main(int argc, char *argv[]) {
 }
 
 SlowSolution::SlowSolution() : Node("slowsolution") {
-  RCLCPP_INFO(this->get_logger(), "Remove this statement from spin_slow_update.cpp");
-  // your code here
+  pos_sub_ = create_subscription<ArrayMsg>(
+      "/measuredpos", 10, std::bind(&SlowSolution::pos_callback, this, _1));
+  pred_pub_ = create_publisher<ArrayMsg>("/predictedpos", 10);
 }
 
-// your code here
+void SlowSolution::pos_callback(const ArrayMsg::SharedPtr msg) {
+  pred_pub_->publish(*msg);
+}
